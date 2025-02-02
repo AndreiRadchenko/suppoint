@@ -1,0 +1,69 @@
+1. Recover hardkernel boot after installed HAOS:
+  https://github.com/home-assistant/operating-system/blob/dev/Documentation/boards/hardkernel/odroid-m1s.md
+
+2. Odroid ubuntu-server:
+  https://wiki.odroid.com/odroid-m1s/os_images/ubuntu/20231030
+
+  odroid debian 12:
+  https://ppa.linuxfactory.or.kr/images/raw/arm64/bookworm/
+
+3. Install supervised home assistant to odroid m1s:
+  https://github.com/home-assistant/supervised-installer
+  https://github.com/kvazis/training/tree/master/lessons/articles/rpb4_debian_02_2024    
+
+  https://github.com/home-assistant/os-agent/releases
+
+##  if error during sudo apt install ./homeassistant-supervised.deb: E: Repository 'http://ppa.linuxfactory.or.kr bookworm InRelease' changed its 'Origin' value from 'Dongjin Kim <tobetter@gmail.com>' to 'LinuxFactory'
+  1. Clear the Apt Cache for the Repository
+  First, accept the change in repository origin by updating apt preferences:
+
+  sudo apt update --allow-releaseinfo-change
+
+##  Check if NetworkManager active:
+  root@server:/home/odroid# nmcli general status
+  should be:
+STATE      CONNECTIVITY  WIFI-HW  WIFI     WWAN-HW  WWAN    
+connected  full          missing  enabled  missing  enabled 
+
+1. List Active Network Services
+Run the following command to see active network-related services:
+sudo systemctl list-units | grep -i network
+
+1. Disable systemd-networkd
+
+sudo systemctl disable systemd-networkd.service
+sudo systemctl stop systemd-networkd.service
+
+Disable the associated socket as well:
+
+sudo systemctl disable systemd-networkd.socket
+sudo systemctl stop systemd-networkd.socket
+
+2. Mask the Service
+Masking ensures that systemd-networkd cannot be started by any process:
+
+sudo systemctl mask systemd-networkd.service
+sudo systemctl mask systemd-networkd.socket
+
+3. Confirm that NetworkManager is enabled:
+
+sudo systemctl enable NetworkManager
+sudo systemctl start NetworkManager
+
+4. Verify the Status
+Check if it's disabled and stopped:
+
+sudo systemctl status systemd-networkd.service
+It should show as inactive or disabled.
+
+5. Reboot
+
+## Fix app armor problem 
+sudo aa-status
+apparmor module is loaded.
+apparmor filesystem is not mounted.
+
+https://forum.odroid.com/viewtopic.php?t=47807
+
+1. Edit /etc/default/flash-kernel. Add security=apparmor to the line starts with LINUX_KERNEL_CMDLINE
+2. The change will be affected after rebooting, but you must update /boot/bot.scr to have security=apparmor by running sudo update-bootscript.

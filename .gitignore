@@ -33,6 +33,8 @@ shell_command.yaml
 __pycache__
 
 # Directory (contents) ignores
+/docs/ha-gpio
+/docs/secrets.txt
 /blueprints/automation/test**
 /blueprints/script/test**
 /Purgatory**
