@@ -1,0 +1,52 @@
+## Allow folders
+# !*/
+!/automations/
+!/automations/*.yaml
+...  and more stuff, one of those for every folder basically
+
+## Allow files
+!alert.yaml
+!automations.yaml
+!.HA_VERSION
+!.gitkeep
+!README.md
+!LICENSE
+... And more stuff, one for every .yaml file basically.
+
+############# Failsafe  \/ \/ \/ \/ \/ #############
+
+# File Ignores
+home-assistant.log.*
+remote_cmd.yaml
+**secrets.yaml
+shell_command.yaml
+**/test.yaml
+/zigbee2mqtt/*.yaml
+
+# Generic ignores
+*.log
+*.db
+*.db-shm
+*.db-wal
+*.pyc
+._*
+__pycache__
+
+# Directory (contents) ignores
+/blueprints/automation/test**
+/blueprints/script/test**
+/Purgatory**
+/themes**
+/.storage/**
+/.storage/cloud**
+/.storage/core**
+/.storage/hacs**
+/.storage/http
+*/deps**
+*/pop.git**
+*test**
+
+# Ignore files created by IDE's
+*&/.vscode**
+*/.theia**
+*/.Trash**

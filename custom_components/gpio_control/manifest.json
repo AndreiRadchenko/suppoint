@@ -1,0 +1,10 @@
+{
+  "domain": "gpio_control",
+  "name": "GPIO Control",
+  "version": "1.0",
+  "documentation": "https://your-link.com",
+  "dependencies": [],
+  "codeowners": [],
+  "iot_class": "local_polling",
+  "requirements": ["gpiod"]
+}
