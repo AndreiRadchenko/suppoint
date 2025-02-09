@@ -1,0 +1,66 @@
+- platform: template
+  name: 'Lock 1'
+  value_template: "{{ is_state('switch.delay_relay_1', 'off') }}"
+  lock:
+    # action: switch.turn_off
+    # target:
+    #   entity_id: switch.delay_relay_1
+  unlock:
+    action: switch.turn_on
+    target:
+      entity_id: switch.delay_relay_1
+- platform: template      
+  name: 'Lock 2'
+  value_template: "{{ is_state('switch.delay_relay_2', 'off') }}"
+  lock:
+    # action: switch.turn_off
+    # target:
+    #   entity_id: switch.delay_relay_2
+  unlock:
+    action: switch.turn_on
+    target:
+      entity_id: switch.delay_relay_2      
+- platform: template  
+  name: 'Lock 3'
+  value_template: "{{ is_state('switch.delay_relay_3', 'off') }}"
+  lock:
+    # action: switch.turn_off
+    # target:
+    #   entity_id: switch.delay_relay_3
+  unlock:
+    action: switch.turn_on
+    target:
+      entity_id: switch.delay_relay_3
+- platform: template  
+  name: 'Lock 4'
+  value_template: "{{ is_state('switch.delay_relay_4', 'off') }}"
+  lock:
+    # action: switch.turn_off
+    # target:
+    #   entity_id: switch.delay_relay_4
+  unlock:
+    action: switch.turn_on
+    target:
+      entity_id: switch.delay_relay_4      
+- platform: template  
+  name: 'Lock 5'
+  value_template: "{{ is_state('switch.delay_relay_5', 'off') }}"
+  lock:
+    # action: switch.turn_off
+    # target:
+    #   entity_id: switch.delay_relay_5
+  unlock:
+    action: switch.turn_on
+    target:
+      entity_id: switch.delay_relay_5      
+- platform: template  
+  name: 'Lock 6'
+  value_template: "{{ is_state('switch.delay_relay_6', 'off') }}"
+  lock:
+    # action: switch.turn_off
+    # target:
+    #   entity_id: switch.delay_relay_6
+  unlock:
+    action: switch.turn_on
+    target:
+      entity_id: switch.delay_relay_6      

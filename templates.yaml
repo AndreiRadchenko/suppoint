@@ -1,0 +1,50 @@
+- binary_sensor:
+    - name: "Cell 1"
+      state: >
+        {{ is_state("sensor.gpio_sensor_1", "open") }}
+      device_class: door
+      
+    - name: "Cell 2"
+      state: >
+        {{ is_state("sensor.gpio_sensor_2", "open") }}
+      device_class: door
+      
+    - name: "Cell 3"
+      state: >
+        {{ is_state("sensor.gpio_sensor_3", "open") }}
+      device_class: door
+      
+    - name: "Cell 4"
+      state: >
+        {{ is_state("sensor.gpio_sensor_4", "open") }}
+      device_class: door
+      
+    - name: "Cell 5"
+      state: >
+        {{ is_state("sensor.gpio_sensor_5", "open") }}
+      device_class: door
+      
+    - name: "Cell 6"
+      state: >
+        {{ is_state("sensor.gpio_sensor_6", "open") }}
+      device_class: door  
+      
+
+    #   icon: >
+    #       {% if is_state("binary_sensor.grid", "on") -%}
+    #         mdi:transmission-tower
+    #       {%- else -%}
+    #         mdi:transmission-tower-off
+    #       {%- endif %}  
+        
+    # - name: "Station"
+    #   state: >
+    #     {{ is_state('binary_sensor.power_monitor_power_meter_status', 'on') and is_state('binary_sensor.grid', 'off') and is_state('binary_sensor.charger', 'off') }}
+    #   icon: >
+    #       mdi:home-battery
+        
+    # - name: "Generator"
+    #   state: >
+    #     {{ is_state('binary_sensor.power_monitor_power_meter_status', 'on') and is_state('binary_sensor.grid', 'off') and is_state('binary_sensor.charger', 'on') }}
+    #   icon: >
+    #       mdi:generator-stationary 

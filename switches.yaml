@@ -1,0 +1,62 @@
+- platform: template
+  switches:
+    delay_relay_1:
+      value_template: "{{ is_state('switch.door_locks_switch_1', 'on') }}"
+      turn_on:
+        - service: script.turn_on_delay_turn_off
+          data:
+            switch_entity: switch.door_locks_switch_1  # Replace with your target switch
+      turn_off:
+        - service: switch.turn_off
+          data:
+            entity_id: switch.door_locks_switch_1  # Replace with your target switch   
+    delay_relay_2:
+      value_template: "{{ is_state('switch.door_locks_switch_2', 'on') }}"
+      turn_on:
+        - service: script.turn_on_delay_turn_off
+          data:
+            switch_entity: switch.door_locks_switch_2  # Replace with your target switch
+      turn_off:
+        - service: switch.turn_off
+          data:
+            entity_id: switch.door_locks_switch_2  # Replace with your target switch  
+    delay_relay_3:
+      value_template: "{{ is_state('switch.door_locks_switch_3', 'on') }}"
+      turn_on:
+        - service: script.turn_on_delay_turn_off
+          data:
+            switch_entity: switch.door_locks_switch_3  # Replace with your target switch
+      turn_off:
+        - service: switch.turn_off
+          data:
+            entity_id: switch.door_locks_switch_3  # Replace with your target switch  
+    delay_relay_4:
+      value_template: "{{ is_state('switch.door_locks_switch_4', 'on') }}"
+      turn_on:
+        - service: script.turn_on_delay_turn_off
+          data:
+            switch_entity: switch.door_locks_switch_4  # Replace with your target switch
+      turn_off:
+        - service: switch.turn_off
+          data:
+            entity_id: switch.door_locks_switch_4  # Replace with your target switch  
+    delay_relay_5:
+      value_template: "{{ is_state('switch.doors_locks_rf_switch_1', 'on') }}"
+      turn_on:
+        - service: script.turn_on_delay_turn_off
+          data:
+            switch_entity: switch.doors_locks_rf_switch_1  # Replace with your target switch
+      turn_off:
+        - service: switch.turn_off
+          data:
+            entity_id: switch.doors_locks_rf_switch_1  # Replace with your target switch  
+    delay_relay_6:
+      value_template: "{{ is_state('switch.doors_locks_rf_switch_2', 'on') }}"
+      turn_on:
+        - service: script.turn_on_delay_turn_off
+          data:
+            switch_entity: switch.doors_locks_rf_switch_2  # Replace with your target switch
+      turn_off:
+        - service: switch.turn_off
+          data:
+            entity_id: switch.doors_locks_rf_switch_2  # Replace with your target switch          
