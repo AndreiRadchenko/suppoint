@@ -1,0 +1,11 @@
+- platform: ffmpeg
+  name: cam1
+  input: !secret rtsp_cam1
+  
+# - platform: ffmpeg
+#   name: cam-hd
+#   input: !secret rtsp_hd
+  
+# - platform: ffmpeg
+#   name: cam-sd
+#   input: !secret rtsp_sd

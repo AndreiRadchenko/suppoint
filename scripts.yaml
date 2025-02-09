@@ -1,0 +1,16 @@
+turn_on_delay_turn_off:
+  alias: Turn On, Delay, Turn Off
+  description: Turns on a switch, waits for 30 seconds, then turns it off.
+  mode: parallel
+  fields:
+    switch_entity:
+      description: The entity ID of the switch to control.
+      example: switch.example_switch
+  sequence:
+  - data:
+      entity_id: '{{ switch_entity }}'
+    action: switch.turn_on
+  - delay: "00:00:30" 
+  - data:
+      entity_id: '{{ switch_entity }}'
+    action: switch.turn_off

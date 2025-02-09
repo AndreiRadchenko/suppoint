@@ -9,9 +9,11 @@ frontend:
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
+camera: !include cameras.yaml
+template: !include templates.yaml
+switch: !include switches.yaml
+lock: !include locks.yaml
 
 sensor:
   - platform: gpio_control  
 
-#switch:
-#  - platform: gpio_control
