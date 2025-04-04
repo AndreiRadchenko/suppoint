@@ -67,3 +67,67 @@ https://forum.odroid.com/viewtopic.php?t=47807
 
 1. Edit /etc/default/flash-kernel. Add security=apparmor to the line starts with LINUX_KERNEL_CMDLINE
 2. The change will be affected after rebooting, but you must update /boot/bot.scr to have security=apparmor by running sudo update-bootscript.
+
+## hassio-supervisor problem with autoupdate
+
+Inspect container parametres:
+docker inspect hassio_supervisor
+
+hassio-supervisor:2025.03.04 wont start
+workaround:
+sudo systemctl stop hassio-apparmor.service
+sudo systemctl disable hassio-apparmor.service
+sudo systemctl stop hassio-supervisor.service
+sudo systemctl disable hassio-apparmor.service
+
+manual docker run command for hassio_supervisor:
+
+docker run -d --name=hassio_supervisor \
+  --privileged \
+  --network=bridge \
+  --volume /run/dbus:/run/dbus:ro \
+  --volume /run/supervisor:/run/os:rw \
+  --volume /run/udev:/run/udev:ro \
+  --volume /etc/machine-id:/etc/machine-id:ro \
+  --volume /usr/share/hassio:/data:rw,slave \
+  --volume /run/docker.sock:/run/docker.sock:rw \
+  --volume /run/containerd/containerd.sock:/run/containerd/containerd.sock:rw \
+  --volume /run/systemd-journal-gatewayd.sock:/run/systemd-journal-gatewayd.sock:rw \
+  --env SUPERVISOR_MACHINE=odroid-n2 \
+  --env SUPERVISOR_SHARE=/usr/share/hassio \
+  --env SUPERVISOR_NAME=hassio_supervisor \
+  --env PATH=/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin \
+  --env LANG=C.UTF-8 \
+  --env S6_BEHAVIOUR_IF_STAGE2_FAILS=2 \
+  --env S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0 \
+  --env S6_CMD_WAIT_FOR_SERVICES=1 \
+  --env S6_SERVICES_READYTIME=50 \
+  --env UV_EXTRA_INDEX_URL=https://wheels.home-assistant.io/musllinux-index/ \
+  --env S6_SERVICES_GRACETIME=10000 \
+  --env SUPERVISOR_API=http://localhost \
+  --env CRYPTOGRAPHY_OPENSSL_NO_LEGACY=1 \
+  --env UV_SYSTEM_PYTHON=true \
+  --security-opt apparmor=hassio-supervisor \
+  --security-opt label=disable \
+  --shm-size 64m \
+  --entrypoint /init \
+  ghcr.io/home-assistant/aarch64-hassio-supervisor:2025.02.0
+
+Check Restart Policy
+Run:
+
+sh
+docker inspect -f '{{ .HostConfig.RestartPolicy.Name }}' hassio_supervisor
+If it's "no" or "on-failure", it may not restart as expected. You should use "always" or "unless-stopped".
+
+To set it correctly:
+
+sh
+docker update --restart=always hassio_supervisor
+
+1️⃣ Use --restart=always
+Modify your command:
+
+sh
+docker run -d --restart=always --name=hassio_supervisor \
+...
