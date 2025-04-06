@@ -6,6 +6,7 @@
         - service: script.turn_on_delay_turn_off
           data:
             switch_entity: switch.door_locks_switch_1  # Replace with your target switch
+            binary_sensor_entity: binary_sensor.cell_1
       turn_off:
         - service: switch.turn_off
           data:
@@ -16,6 +17,7 @@
         - service: script.turn_on_delay_turn_off
           data:
             switch_entity: switch.door_locks_switch_2  # Replace with your target switch
+            binary_sensor_entity: binary_sensor.cell_2
       turn_off:
         - service: switch.turn_off
           data:
@@ -26,6 +28,7 @@
         - service: script.turn_on_delay_turn_off
           data:
             switch_entity: switch.door_locks_switch_3  # Replace with your target switch
+            binary_sensor_entity: binary_sensor.cell_3
       turn_off:
         - service: switch.turn_off
           data:
@@ -36,6 +39,7 @@
         - service: script.turn_on_delay_turn_off
           data:
             switch_entity: switch.door_locks_switch_4  # Replace with your target switch
+            binary_sensor_entity: binary_sensor.cell_4
       turn_off:
         - service: switch.turn_off
           data:
@@ -46,6 +50,7 @@
         - service: script.turn_on_delay_turn_off
           data:
             switch_entity: switch.doors_locks_rf_switch_1  # Replace with your target switch
+            binary_sensor_entity: binary_sensor.cell_5
       turn_off:
         - service: switch.turn_off
           data:
@@ -56,6 +61,7 @@
         - service: script.turn_on_delay_turn_off
           data:
             switch_entity: switch.doors_locks_rf_switch_2  # Replace with your target switch
+            binary_sensor_entity: binary_sensor.cell_6
       turn_off:
         - service: switch.turn_off
           data:

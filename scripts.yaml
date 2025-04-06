@@ -1,16 +1,43 @@
+# turn_on_delay_turn_off:
+#   alias: Turn On, Delay, Turn Off
+#   description: Turns on a switch, waits for 30 seconds, then turns it off.
+#   mode: parallel
+#   fields:
+#     switch_entity:
+#       description: The entity ID of the switch to control.
+#       example: switch.example_switch
+#   sequence:
+#   - data:
+#       entity_id: '{{ switch_entity }}'
+#     action: switch.turn_on
+#   - delay: "00:00:30" 
+#   - data:
+#       entity_id: '{{ switch_entity }}'
+#     action: switch.turn_off
+
 turn_on_delay_turn_off:
-  alias: Turn On, Delay, Turn Off
-  description: Turns on a switch, waits for 30 seconds, then turns it off.
+  alias: Turn On, Delay, Turn Off (Reactive)
+  description: Turns on a switch, waits up to 30s unless a binary_sensor turns on, then turns off the switch.
   mode: parallel
   fields:
     switch_entity:
       description: The entity ID of the switch to control.
       example: switch.example_switch
+    binary_sensor_entity:
+      description: Binary sensor to monitor.
+      example: binary_sensor.example
   sequence:
-  - data:
-      entity_id: '{{ switch_entity }}'
-    action: switch.turn_on
-  - delay: "00:00:30" 
-  - data:
-      entity_id: '{{ switch_entity }}'
-    action: switch.turn_off
+    - variables:
+        switch: "{{ switch_entity }}"
+        sensor: "{{ binary_sensor_entity }}"
+    - service: switch.turn_on
+      data:
+        entity_id: "{{ switch }}"
+    - wait_template: >
+        {% set sensor_state = states(sensor) %}
+        {{ sensor_state == 'on' }}
+      timeout: "00:00:30"
+    - service: switch.turn_off
+      data:
+        entity_id: "{{ switch }}"
+
